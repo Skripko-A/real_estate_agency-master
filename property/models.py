@@ -64,3 +64,17 @@ class Complaint(models.Model):
                              on_delete=models.CASCADE, null=True)
     text = models.TextField(verbose_name='Текст жалобы')
 
+    def __str__(self):
+        return f'Жалоба на квартиру {self.flat}'
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User, verbose_name='Кто лайкнул?', related_name='flats_likes', on_delete=models.CASCADE)
+    flat = models.ForeignKey(User, verbose_name='Квартира, которую лайнули', related_name='likes',
+                             on_delete=models.CASCADE)
+    dislike = models.BooleanField(default=False)
+
+    def __str__(self):
+        if self.dislike:
+            return f'Дизлайк {self.flat}'
+        return f'Лайк  {self.flat}'
