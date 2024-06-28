@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Flat(models.Model):
@@ -50,3 +51,14 @@ class Flat(models.Model):
 
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
+
+
+def get_sentinel_user():
+    return User.objects.get_or_create(username='deleted')[0]
+
+
+class Complaint(models.Model):
+    user = models.ForeignKey(User, verbose_name='Кто жаловался?', related_name='complaints',
+                             on_delete=models.SET(get_sentinel_user))
+    text = models.TextField(verbose_name='Текст жалобы')
+
