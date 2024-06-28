@@ -81,3 +81,11 @@ class Like(models.Model):
         if self.dislike:
             return f'Дизлайк {self.flat}'
         return f'Лайк  {self.flat}'
+
+
+class Owner(models.Model):
+    full_name = models.CharField('ФИО владельца', max_length=200)
+    owners_phonenumber = models.CharField('Номер владельца', max_length=20)
+    owner_pure_phonenumber = PhoneNumberField(verbose_name='Нормализованный номер владельца',
+                                              region='RU', blank=True, null=True)
+    flats = models.ManyToManyField(Flat, verbose_name='Квартиры в собственности', related_name='owners')
