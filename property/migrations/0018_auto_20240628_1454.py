@@ -8,7 +8,8 @@ def connect_owners_flats(apps, schema_editor):
     Owner = apps.get_model('property', 'Owner')
     flats = Flat.objects.all()
     for flat in flats.iterator(chunk_size=2000):
-        owner, created = Owner.objects.get_or_create(full_name=flat.owner)
+        owner, created = Owner.objects.get_or_create(full_name=flat.owner, defaults={'phone_number': flat.owners_phonenumber,
+                                                                                     'pure_phone': flat.owner_pure_phonenumber})
         owner.flats.add(flat)
 
 
