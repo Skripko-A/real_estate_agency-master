@@ -60,5 +60,7 @@ def get_sentinel_user():
 class Complaint(models.Model):
     user = models.ForeignKey(User, verbose_name='Кто жаловался?', related_name='complaints',
                              on_delete=models.SET(get_sentinel_user))
+    flat = models.ForeignKey(Flat, verbose_name='Квартира, на которую жаловались', related_name='complaints',
+                             on_delete=models.CASCADE, null=True)
     text = models.TextField(verbose_name='Текст жалобы')
 
