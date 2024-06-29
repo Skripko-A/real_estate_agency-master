@@ -69,7 +69,7 @@ class Complaint(models.Model):
 
 class Like(models.Model):
     user = models.ForeignKey(User, verbose_name='Кто лайкнул?', related_name='flats_likes', on_delete=models.CASCADE)
-    flat = models.ForeignKey(User, verbose_name='Квартира, которую лайнули', related_name='likes',
+    flat = models.ForeignKey(Flat, verbose_name='Квартира, которую лайнули', related_name='likes',
                              on_delete=models.CASCADE)
     dislike = models.BooleanField(default=False)
 
